@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    env_file:
+      - ./.env
+    restart: always
+    ports:
+      - "8080:8080"
+  db:
+    image: postgres:alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=taskuser
+      - POSTGRES_PASSWORD=taskpw
+      - POSTGRES_DB=taskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
